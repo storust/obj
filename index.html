@@ -11,10 +11,12 @@
             margin: 0;
             padding: 0;
         }
+
         img {
             max-width: 100%;
             height: auto;
         }
+
         #weixinTip {
             position: fixed;
             left: 0;
@@ -25,6 +27,7 @@
             height: 100%;
             z-index: 100;
         }
+
         #weixinTip p {
             text-align: center;
             margin-top: 10%;
@@ -42,13 +45,23 @@
         }
         return false;
     }
+
+    function getIsQQClient() {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.indexOf('qq') != -1 && ua.indexOf('mqqbrowser') != -1) {
+            return true;
+        }
+        return false;
+    }
+
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return (r[2]);
         return null;
     }
-    if (getIsWxClient()) {
+
+    if (getIsWxClient() || getIsQQClient()) {
         //右上角打开
         document.getElementById('weixinTip').removeAttribute('hidden');
     } else {

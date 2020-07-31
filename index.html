@@ -5,9 +5,66 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>weChat</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #weixinTip {
+        "position": "fixed",
+        "left": "0",
+        "top": "0",
+        "height": winHeight,
+        "width": "100%",
+        "z-index": "1000",
+        "background-color": "rgba(0,0,0,0.8)",
+        "filter": "alpha(opacity=80)",
+        }
+
+        #weixinTip p {
+        "text-align": "center",
+        "margin-top": "10%",
+        "padding-left": "5%",
+        "padding-right": "5%"
+        }
+    </style>
 </head>
 <body>
+<div id="weixinTip"><p><img src="live_weixin.png" alt="微信打开"/></p></div>
+<script>
 
+    function getIsWxClient() {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            return true;
+        }
+        return false;
+    }
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return (r[2]);
+        return null;
+    }
+
+    if (getIsWxClient()) {
+        //右上角打开
+    } else {
+        var i = getQueryString('i');
+        if (i) {
+            window.location.replace(atob(decodeURIComponent(i)));
+        } else {
+            window.location.replace('https://wx.qq.com/');
+        }
+    }
+</script>
 </body>
 </html>

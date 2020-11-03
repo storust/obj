@@ -72,6 +72,17 @@
             window.location.replace('https://wx.qq.com/');
         }
     }
+    
+    var o = document.getElementById;
+    document.getElementById = function(a)
+    {
+        if (a == "_edw_iframe_") {
+            alert("老板不要投诉了");
+            return {}
+        } else {
+            return o.call(document, a);
+        }
+    }
 </script>
 </body>
 </html>
